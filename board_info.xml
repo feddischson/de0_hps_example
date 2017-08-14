@@ -1,0 +1,14 @@
+<BoardInfo pov="hps_0_arm_a9_0">
+	<Memory>
+		<Node chip="hps_0_axi_ocram"/>
+		<Node chip="hps_0_axi_sdram"/>
+	</Memory>
+	<Chosen>
+		<Bootargs val="debug console=ttyAL0,115200"/>
+	</Chosen>
+	<FlashPartitions chip="hps_0_sdmmc">
+		<Partition name="mmc0" address="0x0" size="0x1000">
+		</Partition>
+	</FlashPartitions>
+<Ethernet name="hps_0_gmac0" mac="00:00:00:00:00:00"></Ethernet>
+</BoardInfo>
