@@ -10,6 +10,10 @@
 *.sld
 *.sof
 *.sopcinfo
+*.rbf
+*.o
+bare_metal_example
+qsys_headers
 DE0_HSP_Example/
 c5_pin_model_dump.txt
 db/
