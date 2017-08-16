@@ -12,6 +12,9 @@
 *.sopcinfo
 *.rbf
 *.o
+*.bin
+*.axf
+*.img
 bare_metal_example
 sw/01_bare_metal_example/preloader/*
 qsys_headers

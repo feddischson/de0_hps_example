@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>spl</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Aug 15, 2017 11:10:40 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1502831440026</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Aug 16, 2017 11:20:46 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1502918446235</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>./</BspGeneratedLocation>
         <BspSettingsFile>preloader/settings.bsp</BspSettingsFile>
         <HpsSettingsPath>../../../soc/hps_isw_handoff/DE0_HSP_Example_hps_0</HpsSettingsPath>
@@ -290,7 +290,7 @@
                 <SettingName>spl.boot.FAT_LOAD_PAYLOAD_NAME</SettingName>
                 <Identifier>none</Identifier>
                 <Type>UnquotedString</Type>
-                <Value>u-boot.img</Value>
+                <Value>bare_metal_example.img</Value>
                 <DefaultValue>u-boot.img</DefaultValue>
                 <DestinationFile>public_mk_define</DestinationFile>
                 <Description>When FAT partition supported is enabled, this specifies the boot image filename within a FAT partition to be used as fatload payload.</Description>
