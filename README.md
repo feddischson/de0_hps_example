@@ -1,5 +1,15 @@
 
+Synopsis
+=============
+This repo can be seen as some public personal notes and contains some simple examples for the Terasic DE0-nano-SOC board to demonstrate its functionality.
+The scripts and files shall help to setup a project easily without extracting all the required information from the
+wide spread Altera documentation.
 
+
+
+Installation
+=============
+No installation is required, but most of the scripts and Makefiles are based on the Altera tools (quartus, SOC-EDS).
 
 
 Literature
