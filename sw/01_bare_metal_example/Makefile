@@ -180,6 +180,7 @@ $(SDCARD): $(PRELOADER) $(BINMKIMAGE)
 .PHONY: clean
 clean:
 	rm -rf $(TARGET) *.axf *.bin \
+	  $(HWLIB_DIR) \
 	  $(OBJDIR) \
 	  $(SDCARD) \
 	  $(PRELOADER_DIR)/generated \
