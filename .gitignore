@@ -15,6 +15,7 @@
 *.bin
 *.axf
 *.img
+hwlib
 bare_metal_example
 sw/01_bare_metal_example/preloader/*
 qsys_headers

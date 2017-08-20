@@ -1,68 +1,138 @@
 TARGET 				:= bare_metal_example
 QSYS_HEADERS 		:= ../../soc/qsys_headers
-MULTILIBFLAGS 		:= -mfloat-abi=softfp -mtune=cortex-a9 -mcpu=cortex-a9 -march=armv7-a
-CFLAGS 				:= $(MULTILIBFLAGS) -g -O0 -Werror -Wall -Wstrict-prototypes
-SRC 				:= bare_metal_example.c
 PRELOADER_DIR 		:= preloader
-PRELOADER 			:= $(PRELOADER_DIR)/preloader-mkpimage.bin
+OBJDIR 				:= obj
 SDCARD 				:= sdcard.img
-LINKER_SCRIPT 		:= cycloneV-dk-oc-ram-hosted.ld
-OBJCOPY 			:= arm-altera-eabi-objcopy
+PRELOADER 			:= $(PRELOADER_DIR)/preloader-mkpimage.bin
 ELF 				:= $(TARGET).axf
 BIN 				:= $(TARGET).bin
+BINMKIMAGE 			:= $(TARGET)_mkimage.bin
 
 # must be a multiple of 63 to make mcopy happy
 # is multiplied by 512 (sector size)
 SDCARD_SIZE 		:= 64512
 
+
+# Cross-compilation setup
 CROSS_COMPILE 		:= arm-altera-eabi-
 CC 					:= $(CROSS_COMPILE)gcc
 LD 					:= $(CROSS_COMPILE)g++
 NM 					:= $(CROSS_COMPILE)nm
 OD 					:= $(CROSS_COMPILE)objdump
+OBJCOPY 			:= $(CROSS_COMPILE)objcopy
+AS 					:= $(CROSS_COMPILE)as
+
+
+# Further tools
 BSP_GENERATE 		:= bsp-generate-files 
 TRUNCATE 			:= truncate
 DD 					:= dd
+MCOPY 				:= mcopy
+MKIMAGE 			:= mkimage
 MKFS 				:= /usr/sbin/mkfs.vfat
 FDISK 				:= /sbin/fdisk -b 512
-MCOPY 				:= mcopy
+
+
+# The source directory of the hwlib within the SOC-EDS
+HWLIB_ROOT 			:= $(SOCEDS_DEST_ROOT)/ip/altera/hps/altera_hps/hwlib
+HWLIB_DIR 			:= ./hwlib
+
+# This board has a cyclone-V
+DEVICE_FAMILY 		:= soc_cv_av
+
+
+LINKER_SCRIPT 		:= cycloneV-dk-ram.ld
+MULTILIBFLAGS 		:= -mfloat-abi=softfp -mtune=cortex-a9 -mcpu=cortex-a9 -march=armv7-a
+ASFLAGS 			:=  -march=armv7-a -mcpu=cortex-a9
+CFLAGS 				:= $(MULTILIBFLAGS) -g -O0 -Werror -Wall \
+							-fdata-sections -ffunction-sections \
+						  -I $(HWLIB_DIR)/include \
+						  -I $(HWLIB_DIR)/include/soc_cv_av\
+						  -D$(DEVICE_FAMILY) \
+						  -DPRINTF_UART
+
+
+HWLIB_SRC 		:=	$(HWLIB_DIR)/src/utils/alt_p2uart.c \
+					$(HWLIB_DIR)/src/utils/alt_printf.c \
+					$(HWLIB_DIR)/src/hwmgr/soc_cv_av/alt_system_manager.c \
+					$(HWLIB_DIR)/src/hwmgr/soc_cv_av/alt_sdram.c \
+					$(HWLIB_DIR)/src/hwmgr/soc_cv_av/alt_reset_manager.c \
+					$(HWLIB_DIR)/src/hwmgr/soc_cv_av/alt_fpga_manager.c \
+					$(HWLIB_DIR)/src/hwmgr/soc_cv_av/alt_ecc.c \
+					$(HWLIB_DIR)/src/hwmgr/soc_cv_av/alt_clock_manager.c \
+					$(HWLIB_DIR)/src/hwmgr/soc_cv_av/alt_bridge_manager.c \
+					$(HWLIB_DIR)/src/hwmgr/soc_cv_av/alt_bridge_f2s_gnu.s \
+					$(HWLIB_DIR)/src/hwmgr/alt_watchdog.c \
+					$(HWLIB_DIR)/src/hwmgr/alt_timers.c \
+					$(HWLIB_DIR)/src/hwmgr/alt_spi.c \
+					$(HWLIB_DIR)/src/hwmgr/alt_sdmmc.c \
+					$(HWLIB_DIR)/src/hwmgr/alt_qspi.c \
+					$(HWLIB_DIR)/src/hwmgr/alt_nand.c \
+					$(HWLIB_DIR)/src/hwmgr/alt_mmu.c \
+					$(HWLIB_DIR)/src/hwmgr/alt_interrupt.c \
+					$(HWLIB_DIR)/src/hwmgr/alt_i2c.c \
+					$(HWLIB_DIR)/src/hwmgr/alt_globaltmr.c \
+					$(HWLIB_DIR)/src/hwmgr/alt_generalpurpose_io.c \
+					$(HWLIB_DIR)/src/hwmgr/alt_dma_program.c \
+					$(HWLIB_DIR)/src/hwmgr/alt_dma.c \
+					$(HWLIB_DIR)/src/hwmgr/alt_can.c \
+					$(HWLIB_DIR)/src/hwmgr/alt_cache.c \
+					$(HWLIB_DIR)/src/hwmgr/alt_address_space.c \
+					$(HWLIB_DIR)/src/hwmgr/alt_16550_uart.c
+
+SRC 			:= $(HWLIB_SRC)\
+				  ./bare_metal_example.c
+
+OBJS := $(patsubst %.c,%.o,$(SRC)) 
+OBJS := $(patsubst %.s,%.o,$(OBJS)) 
+OBJS := $(patsubst %.o,$(OBJDIR)/%.o,$(OBJS)) 
 
 define FDISK_CMD
 n
 p
-1
+2
 2048
 +1M
 n
 p
-2
+1
 4096
-
++5M
+t
+2
+a2
 t
 1
-2a
-t
-2
 c
 w
 q
 endef
 export FDISK_CMD
 
-
 .PHONY: all
 all: $(SDCARD)
 
-build: $(BIN)
+
+$(HWLIB_SRC):
+	$(shell cp -r $(HWLIB_ROOT) $(HWLIB_DIR) )
+	$(shell mkdir -p $(OBJDIR)/$(HWLIB_DIR)/src/utils)
+	$(shell mkdir -p $(OBJDIR)/$(HWLIB_DIR)/src/hwmgr/soc_cv_av)
+
+
+$(BINMKIMAGE): $(BIN)
+	$(MKIMAGE) -A arm -O u-boot  -T standalone -C none -a 0x00100000 -e 0x00100000 -n bare-metal-example  -d $(BIN) $(BINMKIMAGE)
 
 $(BIN): $(ELF)
 	$(OBJCOPY) -O binary $(ELF) $@
 
-$(ELF): $(TARGET).o
-	$(LD) -T$(LINKER_SCRIPT) $(MULTILIBFLAGS) $(TARGET).o -o $@
+$(ELF): $(OBJS)
+	$(LD) -T$(LINKER_SCRIPT) $(MULTILIBFLAGS) $(OBJS) -o $@
 
-%.o : %.c
+$(OBJDIR)/%.o : %.c Makefile
 	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJDIR)/%.o: %.s Makefile
+	$(AS) $(ASFLAGS) -c $< -o $@
 
 .PHONY: preloader
 preloader: $(PRELOADER)
@@ -73,9 +143,12 @@ $(PRELOADER): $(PRELOADER_DIR)/settings.bsp
 
 
 
-$(SDCARD): $(PRELOADER) $(BIN)
+$(SDCARD): $(PRELOADER) $(BINMKIMAGE)
+
+	echo $(OBJS)
+
 	#
-	# Create the three partitions (MBR, FSB and FAT) 
+	# Create the three parts (MBR, FSB and FAT) 
 	# individually and concatenate them afterwards:
 	#
 
@@ -89,7 +162,7 @@ $(SDCARD): $(PRELOADER) $(BIN)
 	# FAT partition
 	$(DD) if=/dev/zero of=$(SDCARD).03.tmp bs=512 count=$(SDCARD_SIZE)
 	$(MKFS) -v $(SDCARD).03.tmp
-	$(MCOPY) -i $(SDCARD).03.tmp $(BIN) ::$(BIN)
+	$(MCOPY) -i $(SDCARD).03.tmp $(BINMKIMAGE) ::$(BINMKIMAGE)
 
 	cat $(SDCARD).01.tmp  > $(SDCARD).tmp
 	cat $(SDCARD).02.tmp >> $(SDCARD).tmp
@@ -106,7 +179,9 @@ $(SDCARD): $(PRELOADER) $(BIN)
 
 .PHONY: clean
 clean:
-	rm -rf $(TARGET) *.a *.o \
+	rm -rf $(TARGET) *.axf *.bin \
+	  $(OBJDIR) \
+	  $(SDCARD) \
 	  $(PRELOADER_DIR)/generated \
 	  $(PRELOADER_DIR)/uboot-socfpga \
 	  $(PRELOADER_DIR)/*.ds \

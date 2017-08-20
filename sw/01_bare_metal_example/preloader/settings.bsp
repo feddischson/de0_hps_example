@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>spl</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Aug 16, 2017 11:20:46 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1502918446235</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Aug 20, 2017 3:27:53 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1503235673947</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>./</BspGeneratedLocation>
         <BspSettingsFile>preloader/settings.bsp</BspSettingsFile>
         <HpsSettingsPath>../../../soc/hps_isw_handoff/DE0_HSP_Example_hps_0</HpsSettingsPath>
@@ -290,7 +290,7 @@
                 <SettingName>spl.boot.FAT_LOAD_PAYLOAD_NAME</SettingName>
                 <Identifier>none</Identifier>
                 <Type>UnquotedString</Type>
-                <Value>bare_metal_example.img</Value>
+                <Value>bare_metal_example_mkimage.bin</Value>
                 <DefaultValue>u-boot.img</DefaultValue>
                 <DestinationFile>public_mk_define</DestinationFile>
                 <Description>When FAT partition supported is enabled, this specifies the boot image filename within a FAT partition to be used as fatload payload.</Description>
@@ -302,7 +302,7 @@
                 <SettingName>spl.boot.WATCHDOG_ENABLE</SettingName>
                 <Identifier>none</Identifier>
                 <Type>Boolean</Type>
-                <Value>1</Value>
+                <Value>0</Value>
                 <DefaultValue>1</DefaultValue>
                 <DestinationFile>public_mk_define</DestinationFile>
                 <Description>Enable watchdog during Preloader execution phase. Watchdog state remains after Preloader exits.</Description>
