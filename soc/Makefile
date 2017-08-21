@@ -12,11 +12,14 @@ BINFO_FILE 		:= board_info.xml
 DTB_FILE 		:= $(PRJ).dtb
 RBF_FILE 		:= $(PRJ).rbf
 H_DIR 			:= qsys_headers
-
+CDF_FILE 		:= DE0_HSP_Example.cdf   
 SOPC2DTS_ARGS += --bridge-removal all --clocks
 
 CMD_MKDIR := mkdir -p
 
+
+.PHONY: rbf
+rbf: $(RBF_FILE)
 
 
 .PHONY: quartus_edit
@@ -42,9 +45,9 @@ blob: $(DTB_FILE)
 .PHONY: headers
 headers: $(H_DIR)/$(PRJ).h
 
-.PHONY: rbf
-rbf: $(RBF_FILE)
-
+.PHONY: programm
+programm: $(SOF_FILE) $(CDF_FILE)
+	quartus_pgm $(CDF_FILE)
 
 $(RBF_FILE): $(SOF_FILE)
 	quartus_cpf -c $(SOF_FILE) $(RBF_FILE)
