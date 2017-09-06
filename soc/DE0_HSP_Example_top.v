@@ -87,6 +87,13 @@ module DE0_HSP_Example_top(
 wire reset;
 wire h2f_reset;
 
+wire hps_warm_reset;
+wire hps_cold_reset;
+
+wire warm_reset_hs_ack;
+wire warm_reset_hs_req;
+
+
 //=======================================================
 //  Structural coding
 //=======================================================
@@ -94,16 +101,19 @@ wire h2f_reset;
 // create high-active reset from both low-active inputs 
 assign reset = ~&KEY;
 
-
 // the ADCs are not used at the moment
 assign ADC_CONVST  = 1'b1;
 assign ADC_SCK     = 1'b1;
 assign ADC_SDI     = 1'b1;
 
+assign warm_reset_hs_ack = warm_reset_hs_req;
+assign hps_warm_reset    = warm_reset_hs_req;
+assign hps_debug_reset   = 1'b0;
+
 
 DE0_HSP_Example u0 (
         .clk_clk                         ( FPGA_CLK1_50        ), //   clk.clk
-        .reset_reset_n                   ( reset               ), //   reset.reset_n
+        .reset_reset_n                   ( ~reset              ), //   reset.reset_n
         .memory_mem_a                    ( HPS_DDR3_ADDR       ), //   memory.mem_a               
         .memory_mem_ba                   ( HPS_DDR3_BA         ), //   mem_ba              
         .memory_mem_ck                   ( HPS_DDR3_CK_P       ), //   mem_ck           
@@ -179,10 +189,13 @@ DE0_HSP_Example u0 (
 
 
         .led_out_export                  ( LED                 ), //    led_out.export
-        .sw_in_export                    ( SW                  )  //    sw_in.export
+        .sw_in_export                    ( SW                  ), //    sw_in.export
+
+        .hps_warm_reset_reset_n          ( ~hps_warm_reset     ),
+
+        .warm_reset_handshake_h2f_pending_rst_req_n ( ~warm_reset_hs_req ), // warm_reset_handshake.h2f_pending_rst_req_n
+        .warm_reset_handshake_f2h_pending_rst_ack_n ( ~warm_reset_hs_ack ), //                     .f2h_pending_rst_ack_n
+
     );
-
-
-
 
 endmodule

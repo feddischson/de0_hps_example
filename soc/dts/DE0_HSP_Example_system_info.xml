@@ -1,0 +1,16 @@
+<BoardInfo pov="hps_0_arm_a9_0">
+<!--
+      Most of the content of this file is taken
+      from the GHRD of rocketboards.org (https://releases.rocketboards.org/release/)
+      and adapted.
+      This file is used for the make target `make example_dts`, which can be used
+      as a comparison to DE0_HSP_Example.dts.
+-->
+
+<DTAppend name="model" type="string" parentlabel="" val="Altera SOCFPGA Cyclone V"/>
+<DTAppend name="compatible" parentlabel="" >
+	<val type="string">altr,socfpga-cyclone5</val>
+	<val type="string">altr,socfpga</val>
+</DTAppend>
+
+</BoardInfo>

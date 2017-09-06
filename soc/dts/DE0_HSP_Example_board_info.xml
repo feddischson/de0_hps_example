@@ -1,0 +1,113 @@
+<BoardInfo>
+<!--
+      Most of the content of this file is taken
+      from the GHRD of rocketboards.org (https://releases.rocketboards.org/release/)
+      and adapted.
+      This file is used for the make target `make example_dts`, which can be used
+      as a comparison to DE0_HSP_Example.dts.
+-->
+
+
+<alias name="ethernet0" value="/sopc@0/ethernet@0xff702000"/>
+<alias name="spi1" value="/sopc@0/spi@0xfff01000"/>
+
+
+<!--
+      ARM-Cortex-A9 
+-->
+<DTAppend name="next-level-cache" type="phandle" parentlabel="hps_0_arm_a9_0" val="hps_0_L2"/>
+<DTAppend name="next-level-cache" type="phandle" parentlabel="hps_0_arm_a9_1" val="hps_0_L2"/>
+
+<DTAppend name="cache-unified" type="bool" parentlabel="hps_0_L2" val="true"/>
+<DTAppend name="arm,tag-latency" parentlabel="hps_0_L2">
+	<val type="number">1</val>
+	<val type="number">1</val>
+	<val type="number">1</val>
+</DTAppend>
+<DTAppend name="arm,data-latency" parentlabel="hps_0_L2">
+	<val type="number">2</val>
+	<val type="number">1</val>
+	<val type="number">1</val>
+</DTAppend>
+
+
+<DTAppend name="leds" type="node" parentlabel="sopc0" newlabel="soc_leds"/>
+<DTAppend name="compatible" type="string" parentlabel="soc_leds" val="gpio-leds"/>
+
+<DTAppend name="hps0" type="node" parentlabel="soc_leds" newlabel="led_hps0"/>
+<DTAppend name="hps1" type="node" parentlabel="soc_leds" newlabel="led_hps1"/>
+<DTAppend name="hps2" type="node" parentlabel="soc_leds" newlabel="led_hps2"/>
+<DTAppend name="hps3" type="node" parentlabel="soc_leds" newlabel="led_hps3"/>
+
+<DTAppend name="fpga0" type="node" parentlabel="soc_leds" newlabel="led_fpga0"/>
+<DTAppend name="fpga1" type="node" parentlabel="soc_leds" newlabel="led_fpga1"/>
+<DTAppend name="fpga2" type="node" parentlabel="soc_leds" newlabel="led_fpga2"/>
+<DTAppend name="fpga3" type="node" parentlabel="soc_leds" newlabel="led_fpga3"/>
+
+<!-- these two can be removed when 14.1 or newer is used to generate the sopinfo -->
+<DTAppend name="snps,nr-gpios" type="number" parentlabel="hps_0_gpio0_porta" val="29"/>
+<DTAppend name="snps,nr-gpios" type="number" parentlabel="hps_0_gpio1_porta" val="29"/>
+
+<DTAppend name="label" type="string" parentlabel="led_hps0" val="hps_led0"/>
+<DTAppend name="gpios" parentlabel="led_hps0" >
+<val type="phandle">hps_0_gpio1_porta</val>
+<val type="number">15</val>
+<val type="number">1</val>
+</DTAppend>
+
+<DTAppend name="label" type="string" parentlabel="led_hps1" val="hps_led1"/>
+<DTAppend name="gpios" parentlabel="led_hps1" >
+<val type="phandle">hps_0_gpio1_porta</val>
+<val type="number">14</val>
+<val type="number">1</val>
+</DTAppend>
+
+<DTAppend name="label" type="string" parentlabel="led_hps2" val="hps_led2"/>
+<DTAppend name="gpios" parentlabel="led_hps2" >
+<val type="phandle">hps_0_gpio1_porta</val>
+<val type="number">13</val>
+<val type="number">1</val>
+</DTAppend>
+
+<DTAppend name="label" type="string" parentlabel="led_hps3" val="hps_led3"/>
+<DTAppend name="gpios" parentlabel="led_hps3" >
+<val type="phandle">hps_0_gpio1_porta</val>
+<val type="number">12</val>
+<val type="number">1</val>
+</DTAppend>
+
+<DTAppend name="label" type="string" parentlabel="led_fpga0" val="fpga_led0"/>
+<DTAppend name="gpios" parentlabel="led_fpga0" >
+<val type="phandle">led_pio</val>
+<val type="number">0</val>
+<val type="number">1</val>
+</DTAppend>
+
+<DTAppend name="label" type="string" parentlabel="led_fpga1" val="fpga_led1"/>
+<DTAppend name="gpios" parentlabel="led_fpga1" >
+<val type="phandle">led_pio</val>
+<val type="number">1</val>
+<val type="number">1</val>
+</DTAppend>
+
+<DTAppend name="label" type="string" parentlabel="led_fpga2" val="fpga_led2"/>
+<DTAppend name="gpios" parentlabel="led_fpga2" >
+<val type="phandle">led_pio</val>
+<val type="number">2</val>
+<val type="number">1</val>
+</DTAppend>
+
+<DTAppend name="label" type="string" parentlabel="led_fpga3" val="fpga_led3"/>
+<DTAppend name="gpios" parentlabel="led_fpga3" >
+<val type="phandle">led_pio</val>
+<val type="number">3</val>
+<val type="number">1</val>
+</DTAppend>
+
+<Chosen>
+        <Bootargs val="console=ttyS0,115200"></Bootargs>
+</Chosen>
+
+
+
+</BoardInfo>

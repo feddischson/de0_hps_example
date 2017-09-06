@@ -4,7 +4,6 @@
 *.smsg
 *.done
 *.dtb
-*.dts
 *.jdi
 *.pin
 *.sld
@@ -16,6 +15,7 @@
 *.axf
 *.img
 *.qws
+*.log
 hwlib
 bare_metal_example
 sw/01_bare_metal_example/preloader/*
