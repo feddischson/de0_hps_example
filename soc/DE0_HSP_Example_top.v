@@ -87,9 +87,6 @@ module DE0_HSP_Example_top(
 wire reset;
 wire h2f_reset;
 
-wire hps_warm_reset;
-wire hps_cold_reset;
-
 wire warm_reset_hs_ack;
 wire warm_reset_hs_req;
 
@@ -98,8 +95,6 @@ wire warm_reset_hs_req;
 //  Structural coding
 //=======================================================
 
-// create high-active reset from both low-active inputs 
-assign reset = ~&KEY;
 
 // the ADCs are not used at the moment
 assign ADC_CONVST  = 1'b1;
@@ -110,6 +105,8 @@ assign warm_reset_hs_ack = warm_reset_hs_req;
 assign hps_warm_reset    = warm_reset_hs_req;
 assign hps_debug_reset   = 1'b0;
 
+// A warm-reset on the hps-side shall also reset the FPGA part
+assign reset = hps_warm_reset;
 
 DE0_HSP_Example u0 (
         .clk_clk                         ( FPGA_CLK1_50        ), //   clk.clk
@@ -190,8 +187,7 @@ DE0_HSP_Example u0 (
 
         .led_out_export                  ( LED                 ), //    led_out.export
         .sw_in_export                    ( SW                  ), //    sw_in.export
-
-        .hps_warm_reset_reset_n          ( ~hps_warm_reset     ),
+        .pb_in_export                    ( KEY                 ), //    pb_in.export
 
         .warm_reset_handshake_h2f_pending_rst_req_n ( ~warm_reset_hs_req ), // warm_reset_handshake.h2f_pending_rst_req_n
         .warm_reset_handshake_f2h_pending_rst_ack_n ( ~warm_reset_hs_ack ), //                     .f2h_pending_rst_ack_n

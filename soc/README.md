@@ -93,20 +93,20 @@ More details can be found in [4].
 Switch-Buttons
 ---------------
 The four switch buttons are accessed via GPIO on the FPGA-side.
-This appears within linux under `/sys/class/gpio/gpiochip500` where 500 is the first gpio index.
+This appears within linux under `/sys/class/gpio/gpiochip508` where 508 is the first gpio index.
 The four buttons can be exported via
 ```
-echo 500 > /sys/class/gpio/export
-echo 501 > /sys/class/gpio/export
-echo 502 > /sys/class/gpio/export
-echo 503 > /sys/class/gpio/export
+echo 508 > /sys/class/gpio/export
+echo 509 > /sys/class/gpio/export
+echo 510 > /sys/class/gpio/export
+echo 511 > /sys/class/gpio/export
 ```
 and then controlled via
 ```
-/sys/class/gpio/gpio500/
-/sys/class/gpio/gpio501/
-/sys/class/gpio/gpio502/
-/sys/class/gpio/gpio503/
+/sys/class/gpio/gpio508/
+/sys/class/gpio/gpio509/
+/sys/class/gpio/gpio510/
+/sys/class/gpio/gpio511/
 ```
 
 More details can be found in [3].
@@ -116,10 +116,26 @@ HPS-Pushbutton (KEY-2)
 The HPS pushbutton pin connected to pin GPIO54, which is mapped GPIO-1, index 25.
 This button can be accessed via
 ```
-echo 467 > /sys/class/gpio/export
-echo in > /sys/class/gpio/gpio467/direction
-cat /sys/class/gpio/gpio467/value
+echo 465 > /sys/class/gpio/export
+echo in > /sys/class/gpio/gpio465/direction
+cat /sys/class/gpio/gpio465/value
 ```
+
+FPGA-Pushbuttons (KEY-0 and KEY-1(
+----------------
+The twp pushbuttons are accessed via GPIO on the FPGA-side.
+This appears within linux under `/sys/class/gpio/gpiochip508` where 498 is the first gpio index.
+The four buttons can be exported via
+```
+echo 498 > /sys/class/gpio/export
+echo 499 > /sys/class/gpio/export
+```
+and then controlled via
+```
+/sys/class/gpio/gpio498/
+/sys/class/gpio/gpio499/
+```
+
 
 
 LTC-Connector
@@ -127,10 +143,10 @@ LTC-Connector
 The LTC mux (TS3A5018) select pin is mapped to GPIO-1, index 11.
 Do
 ```
-echo 453 > /sys/class/gpio/export
-echo out > /sys/class/gpio/gpio453/direction
+echo 451 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio451/direction
 ```
-to map this pin to user-space (442 is the base index of GPIO-1 and 442+11 = 453).
+to map this pin to user-space (440 is the base index of GPIO-1 and 440+11 = 451).
 *Setting/clearing this pin haven't shown any result, yet.
 The schematic shows a pull-up resistor, but the pin is somehow pulled down.*
 
