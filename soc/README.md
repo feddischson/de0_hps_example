@@ -17,9 +17,8 @@ Integration
 2. Get and prepare the Angstrom image as described [here](https://github.com/Angstrom-distribution/angstrom-manifest)
 3. Patch or adapt u-boot that u-boot loads the FPGA bitstream, for example with
 ```patch
-
 diff --git a/include/configs/socfpga_de0_nano_soc.h b/include/configs/socfpga_de0_nano_soc.h
-index fdddfa3cd2..59859c409a 100644
+index fdddfa3cd2..f03c1fe325 100644
 --- a/include/configs/socfpga_de0_nano_soc.h
 +++ b/include/configs/socfpga_de0_nano_soc.h
 @@ -21,7 +21,7 @@
@@ -31,18 +30,15 @@ index fdddfa3cd2..59859c409a 100644
  #define CONFIG_LOADADDR                0x01000000
  #define CONFIG_SYS_LOAD_ADDR   CONFIG_LOADADDR
 
-@@ -39,6 +39,10 @@
+@@ -39,6 +39,7 @@
         "ramboot=setenv bootargs " CONFIG_BOOTARGS ";" \
                 "bootm ${loadaddr} - ${fdt_addr}\0" \
         "bootimage=zImage\0" \
-+   "ethaddr=C0:B1:3D:88:78:89\0" \
-+   "ipaddr=192.168.222.55\0" \
-+   "serverip=192.168.222.11\0" \
 +   "fpgaimage=socfpga.rbf\0" \
         "fdt_addr=100\0" \
         "fdtimage=socfpga.dtb\0" \
         "bootm ${loadaddr} - ${fdt_addr}\0" \
-@@ -46,6 +50,11 @@
+@@ -46,6 +47,11 @@
         "mmcboot=setenv bootargs " CONFIG_BOOTARGS \
                 " root=${mmcroot} rw rootwait;" \
                 "bootz ${loadaddr} - ${fdt_addr}\0" \
@@ -54,7 +50,6 @@ index fdddfa3cd2..59859c409a 100644
         "mmcload=mmc rescan;" \
                 "load mmc 0:1 ${loadaddr} ${bootimage};" \
                 "load mmc 0:1 ${fdt_addr} ${fdtimage}\0" \
-
 ```
 4. Flash the sd-card and copy + rename the *.dtb and *.rbf file to the sd-card (as socfpga.dtb and socfpga.rbf)
 
