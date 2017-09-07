@@ -16,11 +16,12 @@
 *.img
 *.qws
 *.log
+*.donotuse.dts
 hwlib
 bare_metal_example
 sw/01_bare_metal_example/preloader/*
 qsys_headers
-DE0_HSP_Example/
+DE0_HPS_Example/
 c5_pin_model_dump.txt
 db/
 hps_isw_handoff/
