@@ -180,12 +180,12 @@ DE0_HSP_Example u0 (
         .hps_io_hps_io_i2c1_inst_SDA     ( HPS_I2C1_SDAT       ), //    hps_io_i2c1_inst_SDA
         .hps_io_hps_io_i2c1_inst_SCL     ( HPS_I2C1_SCLK       ), //    hps_io_i2c1_inst_SCL
 
-        .hps_io_hps_io_gpio_inst_GPIO09  ( HPS_CONV_USB_N      ), //    hps_io_gpio_inst_GPIO00
-        .hps_io_hps_io_gpio_inst_GPIO35  ( HPS_ENET_INT_N      ), //    hps_io_gpio_inst_GPIO09
-        .hps_io_hps_io_gpio_inst_GPIO40  ( HPS_LTC_GPIO        ), //    hps_io_gpio_inst_GPIO32
-        .hps_io_hps_io_gpio_inst_GPIO53  ( HPS_LED             ), //    hps_io_gpio_inst_GPIO33
-        .hps_io_hps_io_gpio_inst_GPIO54  ( HPS_KEY             ), //    hps_io_gpio_inst_GPIO34
-        .hps_io_hps_io_gpio_inst_GPIO61  ( HPS_GSENSOR_INT     ), //    hps_io_gpio_inst_GPIO35
+        .hps_io_hps_io_gpio_inst_GPIO09  ( HPS_CONV_USB_N      ), //    hps_io_gpio_inst_GPIO09
+        .hps_io_hps_io_gpio_inst_GPIO35  ( HPS_ENET_INT_N      ), //    hps_io_gpio_inst_GPIO35
+        .hps_io_hps_io_gpio_inst_GPIO40  ( HPS_LTC_GPIO        ), //    hps_io_gpio_inst_GPIO40
+        .hps_io_hps_io_gpio_inst_GPIO53  ( HPS_LED             ), //    hps_io_gpio_inst_GPIO53
+        .hps_io_hps_io_gpio_inst_GPIO54  ( HPS_KEY             ), //    hps_io_gpio_inst_GPIO54
+        .hps_io_hps_io_gpio_inst_GPIO61  ( HPS_GSENSOR_INT     ), //    hps_io_gpio_inst_GPIO61
 
 
         .led_out_export                  ( LED                 ), //    led_out.export
