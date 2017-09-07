@@ -111,6 +111,29 @@ and then controlled via
 
 More details can be found in [3].
 
+HPS-Pushbutton (KEY-2)
+----------------
+The HPS pushbutton pin connected to pin GPIO54, which is mapped GPIO-1, index 25.
+This button can be accessed via
+```
+echo 467 > /sys/class/gpio/export
+echo in > /sys/class/gpio/gpio467/direction
+cat /sys/class/gpio/gpio467/value
+```
+
+
+LTC-Connector
+---------------
+The LTC mux (TS3A5018) select pin is mapped to GPIO-1, index 11.
+Do
+```
+echo 453 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio453/direction
+```
+to map this pin to user-space (442 is the base index of GPIO-1 and 442+11 = 453).
+*Setting/clearing this pin haven't shown any result, yet.
+The schematic shows a pull-up resistor, but the pin is somehow pulled down.*
+
 References
 =====================
 
