@@ -77,17 +77,39 @@ LEDs
 There exists one green LED which is connected to the HPS via GPIO, 
 which is connected to pin GPIO53 (A20).
 According to [2,Page 3157] this is mapped to GPIO-1, index 24.
-But the following statement is not working right now:
+
+This LED can be controlled via `/sys/class/leds/hps_led0`, for example
 ```
-        led_hps0: hps0 {
-           label = "hps_led0";   
-           gpios = <&gpio1 24 1>;   
-        }; //end hps0 (led_hps0)
+echo mmc0 > /sys/class/leds/hps_led0/trigger
+```
+enables mmc0 access activity to be shown on the HPS LED.
 
+
+The FPGA LEDs can be controlled in a similar way via `/sys/class/leds/fpga_led*`.
+
+More details can be found in [4].
+
+
+Switch-Buttons
+---------------
+The four switch buttons are accessed via GPIO on the FPGA-side.
+This appears within linux under `/sys/class/gpio/gpiochip500` where 500 is the first gpio index.
+The four buttons can be exported via
+```
+echo 500 > /sys/class/gpio/export
+echo 501 > /sys/class/gpio/export
+echo 502 > /sys/class/gpio/export
+echo 503 > /sys/class/gpio/export
+```
+and then controlled via
+```
+/sys/class/gpio/gpio500/
+/sys/class/gpio/gpio501/
+/sys/class/gpio/gpio502/
+/sys/class/gpio/gpio503/
 ```
 
-The FPGA LEDs can be controlled via `/sys/class/leds/`.
-
+More details can be found in [3].
 
 References
 =====================
@@ -99,4 +121,8 @@ References
 [2] Cyclone V Hard Processor System Technical Reference Manual; Altera; 2016.10.28
     https://www.altera.com/content/dam/altera-www/global/en_US/pdfs/literature/hb/cyclone-v/cv_5v4.pdf
 
+[3] GPIO kernel documentation [https://www.kernel.org/doc/Documentation/gpio/sysfs.txt](https://www.kernel.org/doc/Documentation/gpio/sysfs.txt)
 
+[4] LED kernel documentation [https://www.kernel.org/doc/Documentation/leds/leds-class.txt](https://www.kernel.org/doc/Documentation/leds/leds-class.txt)
+
+[5] eLinux wiki about linux dts [http://elinux.org/Device_Tree_Usage](http://elinux.org/Device_Tree_Usage)
