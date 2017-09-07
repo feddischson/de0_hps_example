@@ -6,7 +6,7 @@ JedecChain;
 	P ActionCode(Ign)
 		Device PartName(SOCVHPS) MfrSpec(OpMask(0));
 	P ActionCode(Cfg)
-		Device PartName(5CSEMA4U23) Path("./") File("DE0_HSP_Example.sof") MfrSpec(OpMask(1));
+		Device PartName(5CSEMA4U23) Path("./") File("DE0_HPS_Example.sof") MfrSpec(OpMask(1));
 
 ChainEnd;
 

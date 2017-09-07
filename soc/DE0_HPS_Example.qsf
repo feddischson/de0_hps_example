@@ -4,7 +4,7 @@
 
 set_global_assignment -name FAMILY "Cyclone V"
 set_global_assignment -name DEVICE 5CSEMA4U23C6
-set_global_assignment -name TOP_LEVEL_ENTITY DE0_HSP_Example_top
+set_global_assignment -name TOP_LEVEL_ENTITY DE0_HPS_Example_top
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 14.1
 set_global_assignment -name LAST_QUARTUS_VERSION "16.1.2 Lite Edition"
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "06:35:58 MAY 08,2016"
@@ -23,9 +23,9 @@ set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 
 set_global_assignment -name CYCLONEII_RESERVE_NCEO_AFTER_CONFIGURATION "USE AS REGULAR IO"
 
-set_global_assignment -name VERILOG_FILE DE0_HSP_Example_top.v
-set_global_assignment -name SDC_FILE DE0_HSP_Example.SDC
-set_global_assignment -name QIP_FILE DE0_HSP_Example/synthesis/DE0_HSP_Example.qip
+set_global_assignment -name VERILOG_FILE DE0_HPS_Example_top.v
+set_global_assignment -name SDC_FILE DE0_HPS_Example.SDC
+set_global_assignment -name QIP_FILE DE0_HPS_Example/synthesis/DE0_HPS_Example.qip
 
 
 set_global_assignment -name USE_DLL_FREQUENCY_FOR_DQS_DELAY_CHAIN ON

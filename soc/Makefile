@@ -1,4 +1,4 @@
-PRJ=DE0_HSP_Example
+PRJ=DE0_HPS_Example
 
 QPF := $(PRJ).qpf
 QSF := $(PRJ).qsys
@@ -14,7 +14,7 @@ SINFO_FILE 		:= dts/$(PRJ)_system_info.xml
 DTB_FILE 		:= $(PRJ).dtb
 RBF_FILE 		:= $(PRJ).rbf
 H_DIR 			:= qsys_headers
-CDF_FILE 		:= DE0_HSP_Example.cdf   
+CDF_FILE 		:= DE0_HPS_Example.cdf   
 SOPC2DTS_ARGS += --bridge-removal all --clocks
 
 CMD_MKDIR := mkdir -p
@@ -92,7 +92,7 @@ clean:
 	        c5_pin_model_dump.txt \
 	        hps_sdram_p0_all_pins.txt \
 	        hps_sdram_p0_summary.csv \
-	        DE0_HSP_Example_assignment_defaults.qdf \
+	        DE0_HPS_Example_assignment_defaults.qdf \
 			.qsys_edit \
 	  		$(QSD) \
 			$(SOF_FILE) \

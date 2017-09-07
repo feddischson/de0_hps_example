@@ -4,7 +4,7 @@
       from the GHRD of rocketboards.org (https://releases.rocketboards.org/release/)
       and adapted.
       This file is used for the make target `make example_dts`, which can be used
-      as a comparison to DE0_HSP_Example.dts.
+      as a comparison to DE0_HPS_Example.dts.
 -->
 
 

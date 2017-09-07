@@ -66,9 +66,9 @@ There exists several ways to get a device tree source. In this example,
 the corresponding dts files from the kernel's dts folder are copied and 
 slightly adapted as also mentioned in [1].
 
-The toplevel `DE0_HSP_Example.dts` can be used to configure and extend
+The toplevel `DE0_HPS_Example.dts` can be used to configure and extend
 the base file (`socfpga_cyclone5.dtsi`), which means that the
-`DE0_HSP_Example.dts` should match the SOC configuration (`DE0_HSP_Example.qsys`) including the FPGA part.
+`DE0_HPS_Example.dts` should match the SOC configuration (`DE0_HPS_Example.qsys`) including the FPGA part.
 
 
 

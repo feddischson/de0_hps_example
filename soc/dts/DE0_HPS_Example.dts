@@ -2,7 +2,7 @@
 /include/ "socfpga_cyclone5.dtsi"
 
 / {
-      model = "DE0_HSP_Example";
+      model = "DE0_HPS_Example";
       compatible = "altr,socfpga-cyclone5", "altr,socfpga";
 
       chosen {
@@ -26,7 +26,7 @@
       ////////////////////////////////////////////////////////////////////
       //
       // copied and adapted 
-      // from 'DE0_HSP_Example.donotuse.dts', created via make example_dts
+      // from 'DE0_HPS_Example.donotuse.dts', created via make example_dts
       //
       hps_0_bridges: bridge@0xc0000000 {
          compatible = "altr,bridge-16.1", "simple-bus";
@@ -74,7 +74,7 @@
             compatible = "altr,sysid-16.1", "altr,sysid-1.0";
             reg = <0x00000001 0x00000030 0x00000008>;
             id = <1193046>;
-				timestamp = <1504811165>;
+				timestamp = <1504817015>;
          };
 
       }; //end bridge
