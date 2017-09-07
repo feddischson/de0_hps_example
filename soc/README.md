@@ -51,7 +51,7 @@ index fdddfa3cd2..f03c1fe325 100644
                 "load mmc 0:1 ${loadaddr} ${bootimage};" \
                 "load mmc 0:1 ${fdt_addr} ${fdtimage}\0" \
 ```
-4. Flash the sd-card and copy + rename the *.dtb and *.rbf file to the sd-card (as socfpga.dtb and socfpga.rbf)
+4. Flash the sd-card and copy + rename the *.dtb and *.rbf file to the sd-card (as `socfpga.dtb` and `socfpga.rbf`)
 
 
 Device-Tree-Source
@@ -116,7 +116,7 @@ echo in > /sys/class/gpio/gpio465/direction
 cat /sys/class/gpio/gpio465/value
 ```
 
-FPGA-Pushbuttons (KEY-0 and KEY-1(
+FPGA-Pushbuttons (KEY-0 and KEY-1)
 ----------------
 The twp pushbuttons are accessed via GPIO on the FPGA-side.
 This appears within linux under `/sys/class/gpio/gpiochip508` where 498 is the first gpio index.
@@ -142,6 +142,7 @@ echo 451 > /sys/class/gpio/export
 echo out > /sys/class/gpio/gpio451/direction
 ```
 to map this pin to user-space (440 is the base index of GPIO-1 and 440+11 = 451).
+
 *Setting/clearing this pin haven't shown any result, yet.
 The schematic shows a pull-up resistor, but the pin is somehow pulled down.*
 
