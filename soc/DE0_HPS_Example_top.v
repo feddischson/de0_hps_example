@@ -73,8 +73,14 @@ module DE0_HPS_Example_top(
    output  wire     [7:0]      LED,
 
 
-   //////////// SWITCHES  //////////
-   input   wire     [3:0]      SW
+   /////// SWITCHES  ////////
+   input   wire     [3:0]      SW,
+
+   /////////// SPI //////////             // mapped to 
+   input   wire                SPI_MISO,  // GPIO_1[0]
+   output  wire                SPI_MOSI,  // GPIO_1[1]
+   output  wire                SPI_SCLK,  // GPIO_1[2]
+   output  wire                SPI_SS_N   // GPIO_1[3]
 );
 
 
@@ -189,8 +195,13 @@ DE0_HPS_Example u0 (
         .sw_in_export                    ( SW                  ), //    sw_in.export
         .pb_in_export                    ( KEY                 ), //    pb_in.export
 
-        .warm_reset_handshake_h2f_pending_rst_req_n ( ~warm_reset_hs_req ), // warm_reset_handshake.h2f_pending_rst_req_n
-        .warm_reset_handshake_f2h_pending_rst_ack_n ( ~warm_reset_hs_ack ), //                     .f2h_pending_rst_ack_n
+        .spi_MISO                        ( SPI_MISO            ), //    spi.MISO
+        .spi_MOSI                        ( SPI_MOSI            ), //    spi.MOSI
+        .spi_SCLK                        ( SPI_SCLK            ), //    spi.SCLK
+        .spi_SS_n                        ( SPI_SS_N            ), //    spi.SS_n
+
+        .warm_reset_handshake_h2f_pending_rst_req_n ( ~warm_reset_hs_req ), // h2f_pending_rst_req_n
+        .warm_reset_handshake_f2h_pending_rst_ack_n ( ~warm_reset_hs_ack )  // .f2h_pending_rst_ack_n
 
     );
 

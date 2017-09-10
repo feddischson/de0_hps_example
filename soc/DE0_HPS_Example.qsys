@@ -21,7 +21,7 @@
    {
       datum _sortIndex
       {
-         value = "9";
+         value = "10";
          type = "int";
       }
    }
@@ -97,6 +97,14 @@
          type = "int";
       }
    }
+   element spi_0
+   {
+      datum _sortIndex
+      {
+         value = "9";
+         type = "int";
+      }
+   }
    element sw_pio
    {
       datum _sortIndex
@@ -167,6 +175,7 @@
    type="conduit"
    dir="end" />
  <interface name="reset" internal="clk_0.clk_in_reset" type="reset" dir="end" />
+ <interface name="spi" internal="spi_0.external" type="conduit" dir="end" />
  <interface
    name="sw_in"
    internal="sw_pio.external_connection"
@@ -211,7 +220,7 @@
   <parameter name="PIPELINE_COMMAND" value="1" />
   <parameter name="PIPELINE_RESPONSE" value="1" />
   <parameter name="SYMBOL_WIDTH" value="8" />
-  <parameter name="SYSINFO_ADDR_WIDTH" value="6" />
+  <parameter name="SYSINFO_ADDR_WIDTH" value="7" />
   <parameter name="USE_AUTO_ADDRESS_WIDTH" value="0" />
   <parameter name="USE_RESPONSE" value="0" />
  </module>
@@ -801,6 +810,22 @@
   <parameter name="PLI_PORT" value="50000" />
   <parameter name="USE_PLI" value="0" />
  </module>
+ <module name="spi_0" kind="altera_avalon_spi" version="16.1" enabled="1">
+  <parameter name="avalonSpec" value="2.0" />
+  <parameter name="clockPhase" value="0" />
+  <parameter name="clockPolarity" value="0" />
+  <parameter name="dataWidth" value="8" />
+  <parameter name="disableAvalonFlowControl" value="false" />
+  <parameter name="inputClockRate" value="50000000" />
+  <parameter name="insertDelayBetweenSlaveSelectAndSClk" value="false" />
+  <parameter name="insertSync" value="false" />
+  <parameter name="lsbOrderedFirst" value="false" />
+  <parameter name="masterSPI" value="true" />
+  <parameter name="numberOfSlaves" value="1" />
+  <parameter name="syncRegDepth" value="2" />
+  <parameter name="targetClockRate" value="128000" />
+  <parameter name="targetSlaveSelectToSClkDelay" value="0.0" />
+ </module>
  <module name="sw_pio" kind="altera_avalon_pio" version="16.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
@@ -870,6 +895,15 @@
  <connection
    kind="avalon"
    version="16.1"
+   start="h2f_axi_master_bridge.m0"
+   end="spi_0.spi_control_port">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0040" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="16.1"
    start="fpga_jtag_bridge.master"
    end="sysid_qsys_0.control_slave">
   <parameter name="arbitrationPriority" value="1" />
@@ -921,6 +955,15 @@
   <parameter name="baseAddress" value="0x0020" />
   <parameter name="defaultConnection" value="false" />
  </connection>
+ <connection
+   kind="avalon"
+   version="16.1"
+   start="fpga_jtag_bridge.master"
+   end="spi_0.spi_control_port">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0040" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
  <connection kind="clock" version="16.1" start="clk_0.clk" end="led_pio.clk" />
  <connection kind="clock" version="16.1" start="clk_0.clk" end="sw_pio.clk" />
  <connection kind="clock" version="16.1" start="clk_0.clk" end="sysid_qsys_0.clk" />
@@ -945,6 +988,7 @@
    start="clk_0.clk"
    end="sdram_jtag_bridge.clk" />
  <connection kind="clock" version="16.1" start="clk_0.clk" end="pb_pio.clk" />
+ <connection kind="clock" version="16.1" start="clk_0.clk" end="spi_0.clk" />
  <connection
    kind="clock"
    version="16.1"
@@ -965,6 +1009,13 @@
    version="16.1"
    start="clk_0.clk"
    end="hps_0.h2f_lw_axi_clock" />
+ <connection
+   kind="interrupt"
+   version="16.1"
+   start="hps_0.f2h_irq0"
+   end="spi_0.irq">
+  <parameter name="irqNumber" value="0" />
+ </connection>
  <connection
    kind="reset"
    version="16.1"
@@ -1005,6 +1056,7 @@
    version="16.1"
    start="clk_0.clk_reset"
    end="pb_pio.reset" />
+ <connection kind="reset" version="16.1" start="clk_0.clk_reset" end="spi_0.reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />

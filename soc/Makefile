@@ -84,6 +84,10 @@ $(SOPC_FILE): $(QIP_FILE)
 $(SOF_FILE): $(QIP_FILE) $(SRC)
 	quartus_sh --flow compile  $(QPF)
 
+.PHONY: stage_tftp
+stage_tftp:$(RBF_FILE) $(DTB_FILE)
+	cp $(RBF_FILE) $(TFTP_ROOT)/socfpga.rbf
+	cp $(DTB_FILE) $(TFTP_ROOT)/socfpga.dtb
 
 clean:
 	rm -rf 	db \
