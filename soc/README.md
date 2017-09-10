@@ -131,7 +131,11 @@ and then controlled via
 /sys/class/gpio/gpio499/
 ```
 
-
+SPI
+-----------
+There exists an additional SPI core, which is mapped to the GPIO-1 header, PIN0 to PIN3.
+To use this within linux, add the 'Altera SPI Controller (SPI_ALTERA)' 
+module, e.g. via `bitbake -f -c menuconfig  virtual/kernel `.
 
 LTC-Connector
 ---------------
