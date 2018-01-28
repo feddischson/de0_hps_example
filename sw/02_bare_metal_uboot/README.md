@@ -18,7 +18,7 @@ This might be possible, but u-boot was not happy with that (give me a hint if yo
 Preparation
 ===================
 Run Intel's embedded shell: `${PATH_TO_INTEL_FLGA_LITE}/embedded/embedded_command_shell.sh
-and ensure, that LC_ALL in the environment is cleared: `export LS_ALL=`
+and ensure, that LC_ALL in the environment is cleared: `export LC_ALL=`
 (this influences somehow uboot).
 
 
