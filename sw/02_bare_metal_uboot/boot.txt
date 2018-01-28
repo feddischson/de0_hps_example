@@ -1,0 +1,5 @@
+setenv bootimage bare_metal_example.bin
+setenv loadaddr 0x100000
+setenv mmcload "mmc rescan; ${mmcloadcmd} mmc 0:${mmcloadpart} ${loadaddr} ${bootimage};"
+setenv mmcboot go ${loadaddr};
+
