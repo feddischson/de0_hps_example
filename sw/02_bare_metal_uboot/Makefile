@@ -133,7 +133,7 @@ $(BIN): $(ELF)
 	$(OBJCOPY) -O binary $(ELF) $@
 
 $(ELF): $(OBJS)
-	$(LD) -T$(LINKER_SCRIPT) $(MULTILIBFLAGS) $(OBJS) -o $@
+	$(LD) -T$(LINKER_SCRIPT) $(MULTILIBFLAGS) $(OBJS) -Xlinker -Map=${TARGET}.map -o $@
 
 $(OBJDIR)/%.o : %.c Makefile
 	$(CC) $(CFLAGS) -c $< -o $@
