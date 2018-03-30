@@ -187,7 +187,8 @@ $(SDCARD): $(PRELOADER) $(BIN) $(UBOOT) $(BOOTSCR)
 	cat $(SDCARD).02.tmp >> $(SDCARD).tmp
 	cat $(SDCARD).03.tmp >> $(SDCARD).tmp
 
-	echo "$$FDISK_CMD"  | $(FDISK) $(SDCARD).tmp
+#   echo "$$FDISK_CMD"  | $(FDISK) $(SDCARD).tmp
+	bash fdisk.sh ${SDCARD}.tmp
 	mv $(SDCARD).tmp $(SDCARD)
 
 	rm $(SDCARD).01.tmp
@@ -198,7 +199,7 @@ $(SDCARD): $(PRELOADER) $(BIN) $(UBOOT) $(BOOTSCR)
 
 .PHONY: clean
 clean:
-	rm -rf $(TARGET) *.axf *.bin \
+	rm -rf $(TARGET) *.axf *.bin *.map \
 	  $(HWLIB_DIR) \
 	  $(OBJDIR) \
 	  $(SDCARD) \

@@ -2,11 +2,11 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>spl</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Jan 28, 2018 8:40:30 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1517168430505</BspGeneratedUnixTimeStamp>
-        <BspGeneratedLocation>./</BspGeneratedLocation>
-        <BspSettingsFile>preloader/settings.bsp</BspSettingsFile>
-        <HpsSettingsPath>../../../soc/hps_isw_handoff/DE0_HPS_Example_hps_0</HpsSettingsPath>
+        <BspGeneratedTimeStamp>Mar 30, 2018 12:22:48 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1522405368676</BspGeneratedUnixTimeStamp>
+        <BspGeneratedLocation></BspGeneratedLocation>
+        <BspSettingsFile></BspSettingsFile>
+        <HpsSettingsPath>../../../soc/hps_isw_handoff/DE0_HPS_Example_hps_0/</HpsSettingsPath>
         <JdiFile>default</JdiFile>
         <Cpu xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
         <SchemaVersion>1.9</SchemaVersion>

@@ -26,6 +26,15 @@ Build
 ===================
 Run `make all` to create the sd-card image `sdcard.img`.
 
+or use CMake via
+```
+mkdir build
+cd build
+cmake -DCMAKE_TOOLCHAIN_FILE=../toolchain-arm-altera-eabi.cmake ../
+make
+make sdcard
+```
+
 
 Installation
 ===================
